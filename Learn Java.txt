@@ -1,0 +1,181 @@
+
+Class 2:
+========
+1. Java History
+2. Difference between Java and others(C ,C++)
+3. Java Features
+4. Java Naming Conventions
+5. Java Programming Format
+
+1. Java History:
+=================
+1. JDK 1.0 was released on January 23, 1996. After the first release of Java, there have been many additional features added to the language. Now Java is being used in Windows applications, Web applications, enterprise applications, mobile applications, cards, etc. Each new version adds new features in Java.1996, Jan 23rd. (JDK1.0)
+
+2. 1991: Java was originally conceived by James Gosling and Patrick Naughton at Sun Microsystems. The project was initially called Oak and was designed as part of the Green Project with the goal of creating software for interactive television. However, it was later recognized that the technology had broader applications.
+
+3. While Developing the project, they were told to develop a new programming language that is going to address the following requirements.
+
+1. Simple Programming Language:-
+=============================
+Less Execution Time:-
+   It is going to be high in the performance 
+
+Less Memory
+   The cost is going to be less.
+
+Less Power Consumption
+    When the software system is interacting more with the hardware device, usually, there    will be more power consumption. So, ideally, the effective software must consume less power.
+
+2. Tightly Coded Programming language:-
+==================================
+-If any PL takes more number of lines to achieve something, it is called as loosely coded Programming Language.
+ex C or C++ programming
+
+ex :- Stack operation - (C or C++ programming)
+
+-To achieve Push operation, at least 50 lines of code is required.
+-To achieve Pop operation, at least 50 lines of code is required.
+-To achieve Peek operation, at least 50 lines of code is required.
+
+If any PL takes more less of lines to achieve something, it is called as tightly coded Programming Language.
+
+ex :- Java
+   Stack S=new Stack(); 
+   s.push("Book");
+   s.pop();
+   s.peek();
+Only 4 number of lines  of code is required by using Java.
+
+3. Architectural Neutral:-
+========================
+When a PL is independent of Hardware and software specifications and enhancements, it  is called as Architectural Neutral Programming Language.
+
+
+What is the pre-processor in c and C++?
+In C and C++, the preprocessor is a tool that processes the source code before the actual compilation begins. It performs transformations on the code based on special directives, which are commands beginning with the # symbol. These transformations typically occur before the compiler translates the code into machine code, making the preprocessor a key part of the compilation process.
+
+Why it is required in C and C++ programming language  we have understood?
+The preprocessor in C and C++ is a tool that runs before the actual compilation of the source code. It processes directives in the code, such as  #include and others, and performs transformations or modifications to the code before the compiler processes it.
+
+Why pre-processor is not required in Java?
+In java, the complete predefined libraries are provided in the form of classes and interfaces in a package.
+java.io;
+java.util;
+java.sql;
+import java.io.*;
+import java.util.*;
+import java.sql.*;
+
+The preprocessor is not required in Java because Java's design and compilation model do not need the same kinds of text substitution or conditional code inclusion that are handled by preprocessors in C and C++. There are several reasons for this, including differences in how Java is structured and how its compilation process works.
+
+What are the difference between #include statement and import statement?
+#include statement is existed in C and C++ programming language.
+    import statement is existed in java programming language.
+#include statements are used to include predefined library existed in the form of        header files
+import statements are used to include predefined library existed in the form of packages
+-#include statements are always recognized by the preprocessors.
+   import statements are recognized by the java compilers.
+-#include statements supports static loading.
+    import statements supports dynamic loading.
+-Please be informed that the single #include statement is able to load only one header file
+   #include studio.h
+   #include conio.h
+   #include math.h 
+  import statement can load many packages at one line
+    import java.util.ArrayList;
+    import java.util.LinkedList;
+    import java.util.Stack;
+    import java.util.*;
+
+
+What is a pointer variable?
+Pointer is a variable, it will store addresses location of a particular data structure , where the data structure can be a normal variable or an array or another pointer variables.
+
+Please be informed that the pointers are recognized and executed at the time of  compilation.
+
+1. Pointer variables required static memory allocation, that's why they are supported by the static programming languages. However, Java is the dynamic programming language.
+
+2. Pointer variables are very much suitable for platform dependent programming language, however, java is platform independent programming language. 
+
+3. Pointer will provide less security for the data, but Java is very good secured programming language, it is designed to provide very good security to the data. 
+
+4. Pointers are a bit confusion oriented feature, but java is a simple Programming Language, in order to eliminate confusion, the pointers concept has been removed.
+
+
+
+Why destructors are not there in java but it is available in C++?
+
+In Java, the Garbage collector automatically deletes the unused Objects  or the Objects that are executed completely to free up the  memory. 
+
+We, as a developers, don't have to worry about  the memory de allocation. The Java itself will take care of the memory deallocation.
+
+This is why the concept of destructors are not there in  Java.
+
+
+
+
+
+There are 12 buzz words in Java Programming Language.
+Buzz words is also called as Java features.
+
+1. Simple 
+2. Platform independent
+3. Architecture Neutral
+4. Portable
+5. Secured
+6. High Performance
+7. Object Oriented
+8. Robust
+9. Compiled and interpreted
+10. Distributed
+11. Dynamic
+12. Multithreaded
+
+1. Simple
+======
+Java is considered a simple programming language for several reasons. Although it's not the simplest language in terms of syntax, it is designed to be easy to learn, use, and maintain. 
+It has eliminated the  need of pointers concept which is a threat for Security.
+It is platform independent in nature so that the code could be written once and executed any number of times in different operating systems
+There is no concept of Operator overloading which is a confusion oriented topic.
+
+2. Platform independent
+====================
+Java is considered platform-independent because it follows the principle of "Write Once, Run Anywhere" (WORA). This means that Java programs can run on any device or operating system that has a Java Virtual Machine (JVM), regardless of the underlying hardware or software.
+
+3. Architecture Neutral
+===================
+Java is considered architecture-neutral because its compiled code, which is in the form of bytecode, is not dependent on the underlying hardware architecture (e.g., x86, ARM, etc.). This neutrality allows Java programs to run consistently across different types of systems, irrespective of their hardware configurations. 
+
+4. Portable 
+==========
+Java is considered portable because its design allows Java programs to run on any platform without modification of Java code, as long as that platform has a compatible Java Virtual Machine (JVM). The portability of Java is a direct result of its key features that abstract away the underlying hardware and operating system details. 
+
+5. Secured
+=========
+The JVM performs bytecode verification to ensure that the bytecode doesn't contain any unsafe instructions. This check helps catch security vulnerabilities before the code runs.
+
+There is a software called Byte Code Verifier which checks if the .class is generated by the valid compiler or not and it also checks if the code is properly formatted or not. If any one of these checks fails, it gives a message called 'Verify Error'
+
+
+
+Robust:
+========
+The java language is Strong.
+The java language is healthy.
+
+1. It is a Strongly Typed  Programming language Language.
+-Java is considered a strongly typed programming language because it enforces strict rules regarding how types (such as integers, strings, and objects) are handled and used in a program. 
+-In Java, variables must be declared with a specific type (e.g., int, String, double, etc.). Once a variable is assigned a type, it cannot be used in a way that violates this type.
+-Java performs compile-time type checking. This means that type errors are detected during the compilation phase, before the program runs. If you try to assign a value of an incorrect type, it will cause a compile-time error.
+
+2. It uses Garbage Collector Mechanism to destroy unused objects
+Java Provides automatic garbage collection which takes care of  the unused memory blocks that will not be used any more. And, it will automatically  destroys the memory blocks just before completing the execution. And, the memory space will be cleaned making for the new execution.
+
+Java uses a Garbage Collector (GC) mechanism to automatically manage memory by identifying and removing unused objects that are no longer referenced in the program. The primary purpose of the garbage collector is to free up memory and prevent memory leaks (i.e., when unused objects consume memory without being released). 
+
+3. It internally handles Exceptions with the Exception handling Mechanism.
+Java has a robust Exception Handling Mechanism that allows developers to handle runtime errors (exceptions) in a structured way, ensuring that the program can recover from or appropriately respond to unexpected situations. The exception handling system in Java is one of its key features, designed to improve the reliability and maintainability of code by separating error-handling code from regular business logic.
+
+4. As it is platform independent, it is called as Robust PL.
+Java is often referred to as a robust programming language, and its platform independence is one of the key reasons for this classification. Java’s robustness refers to its ability to handle a wide range of errors effectively, and its platform independence plays a significant role in making Java reliable and adaptable across different environments.
+ 

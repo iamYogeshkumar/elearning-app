@@ -1,0 +1,501 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| advjdbc            |
+| book               |
+| employee_details   |
+| hiber              |
+| information_schema |
+| jpa                |
+| maven              |
+| mvc                |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sbms36             |
+| shekharhiber       |
+| smart_program      |
+| smartprogram       |
+| student_dbs        |
+| sys                |
+| tapacademy         |
++--------------------+
+18 rows in set (0.08 sec)
+
+mysql> use tapacademy;
+Database changed
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++----------------------+
+| Tables_in_tapacademy |
++----------------------+
+| student              |
++----------------------+
+1 row in set (0.02 sec)
+
+mysql> drop student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> drop table student;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table student
+    -> (
+    -> s_id int primary key,
+    -> s_name varchar(50) not null,
+    -> age int check(age>=18),
+    -> institute varchar(20) default "tap academy"
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc student;
++-----------+-------------+------+-----+-------------+-------+
+| Field     | Type        | Null | Key | Default     | Extra |
++-----------+-------------+------+-----+-------------+-------+
+| s_id      | int         | NO   | PRI | NULL        |       |
+| s_name    | varchar(50) | NO   |     | NULL        |       |
+| age       | int         | YES  |     | NULL        |       |
+| institute | varchar(20) | YES  |     | tap academy |       |
++-----------+-------------+------+-----+-------------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into student values(1,"A",22,"Tap Academy");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(2,"B",22,"Tap Academy");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(3,"C",32,"Tap Academy");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(null,"C",32,"Tap Academy");
+ERROR 1048 (23000): Column 's_id' cannot be null
+mysql> insert into student values(3,null,32,"Tap Academy");
+ERROR 1048 (23000): Column 's_name' cannot be null
+mysql> insert into student values(4,"D",32,null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(3,"C",15,"Tap Academy");
+ERROR 3819 (HY000): Check constraint 'student_chk_1' is violated.
+mysql> insert into student values(5,"C",15,"Tap Academy");
+ERROR 3819 (HY000): Check constraint 'student_chk_1' is violated.
+mysql> insert into student values(5,"C",19);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into student(s_id,s_name,age) values(5,"C",19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *
+    -> from student;
++------+--------+------+-------------+
+| s_id | s_name | age  | institute   |
++------+--------+------+-------------+
+|    1 | A      |   22 | Tap Academy |
+|    2 | B      |   22 | Tap Academy |
+|    3 | C      |   32 | Tap Academy |
+|    4 | D      |   32 | NULL        |
+|    5 | C      |   19 | tap academy |
++------+--------+------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> create table dept
+    -> (
+    -> d_id int primary key,
+    -> d_name varchar(15)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table emp
+    -> (
+    -> e_id int primary  key,
+    -> e_name varchar(15),
+    -> e_age int ,
+    -> d_id int,
+    -> foreign key(d_id) references dept(d_id)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| e_id   | int         | NO   | PRI | NULL    |       |
+| e_name | varchar(15) | YES  |     | NULL    |       |
+| e_age  | int         | YES  |     | NULL    |       |
+| d_id   | int         | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| d_id   | int         | NO   | PRI | NULL    |       |
+| d_name | varchar(15) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into dept values(101,"sales")(102,"BD");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(102,"BD")' at line 1
+mysql> insert into dept values(101,"sales"),(102,"BD");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++------+--------+
+| d_id | d_name |
++------+--------+
+|  101 | sales  |
+|  102 | BD     |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values(1,"A",20,102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(2,"B",20,102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(3,"C",21,103);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`tapacademy`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `dept` (`d_id`))
+mysql> select * from emp;
++------+--------+-------+------+
+| e_id | e_name | e_age | d_id |
++------+--------+-------+------+
+|    1 | A      |    20 |  102 |
+|    2 | B      |    20 |  102 |
++------+--------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from dept;
++------+--------+
+| d_id | d_name |
++------+--------+
+|  101 | sales  |
+|  102 | BD     |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create table emp_details
+    -> (
+    -> e_id int,
+    -> name varchar(20),
+    -> A_No int,
+    -> primary key(e_id,A_No)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc emp_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| e_id  | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| A_No  | int         | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert  into emp_details values(1,"A",101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert  into emp_details values(2,"B",101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert  into emp_details values(2,"C",101);
+ERROR 1062 (23000): Duplicate entry '2-101' for key 'emp_details.PRIMARY'
+mysql> select * from emp_details;
++------+------+------+
+| e_id | name | A_No |
++------+------+------+
+|    1 | A    |  101 |
+|    2 | B    |  101 |
++------+------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+mysql> use tapacademy;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_tapacademy |
++----------------------+
+| dept                 |
+| emp                  |
+| emp_details          |
+| student              |
++----------------------+
+4 rows in set (0.01 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_tapacademy |
++----------------------+
+| dept                 |
+| emp                  |
+| emp_details          |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> create table student
+    -> {
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{' at line 2
+mysql> create table student
+    -> (
+    -> id int,
+    -> name varchar(20)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_tapacademy |
++----------------------+
+| dept                 |
+| emp                  |
+| emp_details          |
+| student              |
++----------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table student add age int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student drop age;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add age int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studnet;
+ERROR 1146 (42S02): Table 'tapacademy.studnet' doesn't exist
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify name as s_name varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as s_name varchar(20)' at line 2
+mysql> alter table student
+    -> modify column name to s_name varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to s_name varchar(20)' at line 2
+mysql> alter table student
+    -> rename column name to f_name varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20)' at line 2
+mysql> alter table student
+    -> rename column name to f_name;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| f_name | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify id varchar(10);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(10) | YES  |     | NULL    |       |
+| f_name | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify  id varchar(15);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(15) | YES  |     | NULL    |       |
+| f_name | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> drop age;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into student values(101,"A");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(101,null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student(id) values(102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *
+    -> from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 101  | A      |
+| 101  | NULL   |
+| 102  | NULL   |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set f_name="B" where id=1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(15) | YES  |     | NULL    |       |
+| f_name | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select *
+    -> from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 101  | A      |
+| 101  | NULL   |
+| 102  | NULL   |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set f_name="B" where id=101;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select *
+    -> from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 101  | B      |
+| 101  | B      |
+| 102  | NULL   |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set f_name="B" where id=102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set f_name="A" where id=101;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select *
+    -> from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 101  | A      |
+| 101  | A      |
+| 102  | B      |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update studnet set f_name=null where id=102;
+ERROR 1146 (42S02): Table 'tapacademy.studnet' doesn't exist
+mysql> update student set f_name=null where id=102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *
+    -> from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 101  | A      |
+| 101  | A      |
+| 102  | NULL   |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from student where id=101;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from student;
++------+--------+
+| id   | f_name |
++------+--------+
+| 102  | NULL   |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> truncate table student;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> desc
