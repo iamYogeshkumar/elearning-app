@@ -9,3 +9,7 @@ logic
 // bug-103
 i am Yogesh singh
 
+//bug-122
+function confirm(){
+ // logic 
+}
