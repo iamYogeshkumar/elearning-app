@@ -9,7 +9,17 @@ logic
 // bug-103
 i am Yogesh singh
 
+<<<<<<< Updated upstream
 //bug-122
 function confirm(){
  // logic 
 }
+=======
+//bug-121
+function confirm(){
+ // logic pending
+}
+
+
+
+>>>>>>> Stashed changes
