@@ -1,3 +1,6 @@
 // ticket 102
 hello
 hi
+
+// bug fix 200
+logic
