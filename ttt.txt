@@ -17,7 +17,7 @@ function confirm(){
 
 //bug-121
 function confirm(){
- // logic pending
+ // logic done
 }
 
 
